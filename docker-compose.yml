@@ -1,0 +1,58 @@
+version: "3"
+services:
+  mapperson:
+    build: .
+    command: "node_modules/.bin/nodemon --watch views -e js, --watch controllers -e js,  --watch ./ -e js"
+    environment:
+      NODE_ENV: development
+    ports:
+      - '8001:8001'
+    tty: true
+    depends_on: 
+      - mongo
+    volumes:
+      - .:/home/app/mapperson
+      - /home/app/mapperson/node_modules
+  # mongo:
+  #   image: aashreys/mongo-auth:latest
+  #   environment:
+  #     - AUTH=yes
+  #     - MONGODB_ADMIN_USER=admin
+  #     - MONGODB_ADMIN_PASS=admin123
+  #     - MONGODB_APPLICATION_DATABASE=sample
+  #     - MONGODB_APPLICATION_USER=aashrey
+  #     - MONGODB_APPLICATION_PASS=admin123
+  #   ports:
+  #     - "27017:27017"
+  # bs:
+  #   image: ustwo/browser-sync
+  #   command: "start --proxy 0.0.0.0:8001 --files 'controllers/map/views/list.html' --reload-delay 3000"
+  #   # command: "start --proxy localhost:8001 --no-open --files '**/*.html, **/*.pug, **/*.css, **/*.js'"
+  #   # depends_on:
+  #   #   - mapperson
+  #   volumes:
+  #     - .:/source
+  #   ports:
+  #     - "3000:3000"
+  #     - "3001:3001"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+    command: mongod
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example

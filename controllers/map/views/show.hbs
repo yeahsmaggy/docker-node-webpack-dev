@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/style.css">
+  <title>{{map.name}}</title>
+</head>
+<body>
+<h1>{{map.name}} <a href="/map/{{map.id}}/edit">edit</a></h1>
+
+{{#if hasMessages}}
+  <ul>
+    {{#each messages}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+
+<ul>
+  <li>{{map._id}}</li>
+  <li>{{map.name}}</li>
+  <li>{{map.date}}</li>
+</ul>
+
+</body>
+</html>

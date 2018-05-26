@@ -1,0 +1,30 @@
+{{> header}}
+
+<body>
+  <h1>Maps</h1>
+  <p>Maps.</p>
+  <ul>a
+    {{#each maps}}
+      {{log _id}}
+      <li><a href="/map/{{_id}}">{{name}}</a>
+
+     <form action="/map/{{_id}}/delete" method="post">
+        <input type="hidden" name="id" value="{{_id}}">
+        <input type="submit" name="submit" value="delete">
+  </form>
+
+</li>
+    {{/each}}
+  </ul>
+
+ <form action="/maps" method="post">
+      <label for="name">Name:
+        <input type="text" name="name" value="">
+      </label>
+  
+      <input type="submit" name="submit" value="submit">
+    </form>
+</body>
+
+
+{{> footer}}
