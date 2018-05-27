@@ -43,6 +43,10 @@ module.exports = {
 	    ".json",
   	]
   },
+  devServer: {
+	  contentBase:'./',
+	  port: 8001
+	},
    // We have to manually add the Hot Replacement plugin when running
   // from Node
   plugins: [new Webpack.HotModuleReplacementPlugin()],

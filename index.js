@@ -1,9 +1,11 @@
+//https://github.com/christianalfoni/webpack-express-boilerplate
+
 const express = require('express')
 const nunjucks = require('nunjucks')
 // require the module as normal
-var httpProxy = require('http-proxy');
+// var httpProxy = require('http-proxy');
 
-var proxy = httpProxy.createProxyServer();
+// var proxy = httpProxy.createProxyServer();
 
 
 const bodyParser= require('body-parser')
@@ -46,19 +48,28 @@ app.use(function(err, req, res, next){
 
 // Any requests to localhost:3000/build is proxied
   // to webpack-dev-server
-  app.all('/*', function (req, res) {
-    proxy.web(req, res, {
-        target: 'http://localhost:8080'
-    });
-  });
+//   app.all('/*', function (req, res) {
+//     proxy.web(req, res, {
+//         target: 'http://localhost:8080'
+//     });
+//   });
 
-// It is important to catch any errors from the proxy or the
-// server will crash. An example of this is connecting to the
-// server when webpack is bundling
-proxy.on('error', function(e) {
-  console.log('Could not connect to proxy, please try again...');
-});
+// // It is important to catch any errors from the proxy or the
+// // server will crash. An example of this is connecting to the
+// // server when webpack is bundling
+// proxy.on('error', function(e) {
+//   console.log('Could not connect to proxy, please try again...');
+// });
 
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html')
+})
+
+
+app.get('/spak', (req, res) => {
+  res.send("HELLLO")
+})
 
 
 app.listen(8001, () => {
@@ -76,6 +87,5 @@ console.log('listening on 8001')
 //   })
 // })
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
+
+
