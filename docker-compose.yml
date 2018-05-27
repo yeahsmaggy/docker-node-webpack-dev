@@ -2,7 +2,7 @@ version: "3"
 services:
   mapperson:
     build: .
-    command: "node_modules/.bin/nodemon --watch views -e js, --watch controllers -e js,  --watch ./ -e js"
+    # command: "node_modules/.bin/nodemon --watch views -e js, --watch controllers -e js,  --watch ./ -e js"
     environment:
       NODE_ENV: development
     ports:

@@ -1,12 +1,14 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
 // require the module as normal
+var httpProxy = require('http-proxy');
 
+var proxy = httpProxy.createProxyServer();
 
 
 const bodyParser= require('body-parser')
 const app = express()
-const MongoClient = require('mongodb').MongoClient
+// const MongoClient = require('mongodb').MongoClient
 const methodOverride = require('method-override');
 const session = require('express-session');
 const path = require('path');
@@ -32,19 +34,36 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // load controllers
-require('./lib/boot')(app, { verbose: !module.parent });
+// require('./lib/boot')(app, { verbose: !module.parent });
 
 app.use(function(err, req, res, next){
   // log it
   if (!module.parent) console.error(err.stack);
-
+ 
   // error page
   //res.status(500).render('5xx');
 });
 
-  app.listen(8001, () => {
-    console.log('listening on 8001')
-  })
+// Any requests to localhost:3000/build is proxied
+  // to webpack-dev-server
+  app.all('/*', function (req, res) {
+    proxy.web(req, res, {
+        target: 'http://localhost:8080'
+    });
+  });
+
+// It is important to catch any errors from the proxy or the
+// server will crash. An example of this is connecting to the
+// server when webpack is bundling
+proxy.on('error', function(e) {
+  console.log('Could not connect to proxy, please try again...');
+});
+
+
+
+app.listen(8001, () => {
+console.log('listening on 8001')
+})
 
 
 // var db
@@ -57,6 +76,6 @@ app.use(function(err, req, res, next){
 //   })
 // })
 
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/index.html')
-// })
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html')
+})
