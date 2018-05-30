@@ -1,9 +1,9 @@
 /**
  * Module dependencies.
  */
-var db = require('../../db');
-const ObjectId = require('mongodb').ObjectId;
-const MapModel = require('../../models/mapmodel')
+// var db = require('../../db');
+// const ObjectId = require('mongodb').ObjectId;
+// const MapModel = require('../../models/mapmodel')
 exports.engine = 'nunjucks';
 exports.before = function(req, res, next) {
     var id = req.params.map_id;
@@ -17,13 +17,16 @@ exports.before = function(req, res, next) {
     });
 };
 exports.list = function(req, res, next) {
-    MapModel.find(function(err, results) {
-        if (err) return console.error(err);
-        // res.status(200).json(results);
         res.render('list', {
-            maps: results
+            maps: ['fake']
         });
-    });
+    // MapModel.find(function(err, results) {
+    //     if (err) return console.error(err);
+    //     // res.status(200).json(results);
+    //     res.render('list', {
+    //         maps: results
+    //     });
+    // });
 };
 exports.edit = function(req, res, next) {
 

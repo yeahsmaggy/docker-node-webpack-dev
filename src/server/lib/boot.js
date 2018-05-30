@@ -5,9 +5,8 @@
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
-//var hbs = require('hbs');
 var nunjucks = require('nunjucks')
-
+//
 module.exports = function(parent, options){
   var dir = path.join(__dirname, '..', 'controllers');
   var verbose = options.verbose;
@@ -23,25 +22,21 @@ module.exports = function(parent, options){
     var handler;
     var method;
     var url;
- 
+
     // allow specifying the view engine
     // if (obj.engine) app.set('view engine', obj.engine);
     //app.set('view engine', 'html');
 
     // Configure Nunjucks
-    var _templates = ['views/partials', path.join(__dirname, '..', 'controllers', name, 'views')] ;
+    var _templates = [path.join(__dirname, '..', 'controllers', name, 'views'), path.join(__dirname, '..', 'views', 'partials'), ] ;
     nunjucks.configure( _templates, {
         autoescape: true,
         cache: false,
         express: app
     } ) ;
 
-    app.engine( 'html', nunjucks.render ) ;
-    app.set( 'view engine', 'html' ) ;
-    // app.set('views', [path.join(__dirname, '..', 'controllers', name, 'views'), '/views']);
-   
-    //hbs.registerPartials(path.join(__dirname, '..', 'views', 'partials'));
-
+    // app.engine( 'html', nunjucks.render ) ;
+    // app.set( 'view engine', 'html' ) ;
 
     // generate routes based
     // on the exported methods

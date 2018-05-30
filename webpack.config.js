@@ -1,58 +1,45 @@
-//https://webpack.js.org/configuration/node/
-//https://gist.github.com/madx/53853c3d7b527744917f
-const Webpack = require('webpack');
-const path = require('path')
-const fs = require('fs')
+//all the errors you get because webpack tries to bundle all the ndoe modules
+//https://stackoverflow.com/questions/31102035/how-can-i-use-webpack-with-express
+//https://stackoverflow.com/questions/41692643/webpack-and-express-critical-dependencies-warning/42425214#42425214
+
+const path = require('path');
+const webpack = require('webpack'); //to access built-in plugins
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
+
+const outputDirectory = 'dist';
+
+
 module.exports = {
-  mode: 'development',
-  entry: {
-    app: './index.js'
-  },
-  target: 'node',
+  entry: './src/client/index.js',
   output: {
-        libraryTarget: 'commonjs',
-    },
-    externals: fs.readdirSync("node_modules")
-	  .reduce(function(acc, mod) {
-	    if (mod === ".bin") {
-	      return acc
-	    }
-
-	    acc[mod] = "commonjs " + mod
-	    return acc
-	  }, {})
-	,
-	node: {
-	  console: false,
-	  global: true,
-	  process: true,
-	  __filename: "mock",
-	  __dirname: "mock",
-	  Buffer: true,
-	  setImmediate: true
-
-	  // See "Other node core libraries" for additional options.
-	},
-	output: {
-	  path: path.join(__dirname, "build"),
-	  filename: "[name].js",
-	},
-	resolve : {
-	  extensions: [
-	    ".js",
-	    ".json",
-  	]
+    path: path.resolve(__dirname, outputDirectory),
+    filename: 'bundle.js'
   },
-  devServer: {
-	  contentBase:'./',
-	  port: 8001
-	},
-   // We have to manually add the Hot Replacement plugin when running
-  // from Node
-  plugins: [new Webpack.HotModuleReplacementPlugin()],
-  // Necessary for file changes inside the bind mount to get picked up
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000
-  }
-}
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       exclude: /node_modules/,
+  //       use: {
+  //         loader: 'babel-loader'
+  //       }
+  //     },
+  //     {
+  //       test: /\.css$/,
+  //       use: ['style-loader', 'css-loader']
+  //     }
+  //   ],
+  // },
+  plugins: [
+    // new CleanWebpackPlugin([outputDirectory]),
+    new HtmlWebpackPlugin()
+  ]
+  // devServer: {
+  //   port: 3000,
+  //   open: true,
+  //   proxy: {
+  //       "/": "http://localhost:8080"
+  //   }
+  // },
+};
