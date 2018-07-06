@@ -1,12 +1,34 @@
-// const express = require('express')
 
-// const app = express();
-// // load controllers
-console.log('index.js');
-console.log('a thing');
+// var body = document.getElementsByTagName('body');
+// body.innerHTML += '<p>Hello World!</p>';
+// // 
 
 
 
+// console.log('hasdfi');
+
+
+// console.log(document.getElementsByTagName('body'));
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import App from './components/App.vue';
+
+
+var vue = require('vue');
+//as/asdf
+var app = new Vue(  { 
+	el: '#app',
+	components: { App },
+	template: '<App/>'
+ });
+//https://codesandbox.io/s/o29j95wx9
+
+
+//next step:::::   https://github.com/anthillsolutions/api-skel
 
 /*
 ## Webpack notes

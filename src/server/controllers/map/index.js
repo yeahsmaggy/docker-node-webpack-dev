@@ -1,11 +1,15 @@
 /**
  * Module dependencies.
  */
-// var db = require('../../db');
+
+var db = require('../../db');
 // const ObjectId = require('mongodb').ObjectId;
-// const MapModel = require('../../models/mapmodel')
+const MapModel = require('../../models/mapmodel')
+
 exports.engine = 'nunjucks';
+
 exports.before = function(req, res, next) {
+
     var id = req.params.map_id;
     if (!id) return next();
     // pretend to query a database...
@@ -16,17 +20,21 @@ exports.before = function(req, res, next) {
         next();
     });
 };
-exports.list = function(req, res, next) {
-        res.render('list', {
-            maps: ['fake']
-        });
-    // MapModel.find(function(err, results) {
-    //     if (err) return console.error(err);
-    //     // res.status(200).json(results);
-    //     res.render('list', {
-    //         maps: results
-    //     });
-    // });
+exports.list = async function(req, res, next) {
+
+    await MapModel.find(function(err, results) {
+          if (err) {
+            return next(err);
+        }
+         res.status(200).json(results);
+        // res.send('hi');
+        //res.status(200).json(['asdf']);
+
+
+        // res.render('list', {
+        //     maps: results
+        // });
+    });
 };
 exports.edit = function(req, res, next) {
 

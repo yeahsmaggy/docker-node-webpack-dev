@@ -2,7 +2,7 @@ version: "3"
 services:
   mapperson:
     build: .
-    command: "node_modules/.bin/nodemon --watch views -e js, --watch controllers -e js,  --watch ./ -e js"
+    command: "node_modules/.bin/nodemon src/server/index.js &&  tail -f /dev/null"
     environment:
       NODE_ENV: development
     ports:
@@ -24,7 +24,6 @@ services:
     volumes:
       - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
     command: mongod
-
   mongo-express:
     image: mongo-express
     restart: always
