@@ -75,13 +75,15 @@ module.exports = [
     port: 3000,
     historyApiFallback: true,
     open: true,
-    // https: true,
-    // proxy: {
-    //   '/api': {
-    //   target: 'http://localhost:8080',
-    //   pathRewrite: {'^/api' : ''}
-    // }
-    //}
+    https: true,
+    proxy: {
+      '/api': {
+      // '/': {
+      target: 'http://localhost:8001',
+      // pathRewrite: {'^/api' : ''}
+      pathRewrite: {'^/api' : ''}
+    }
+    }
 }
 }
 ];

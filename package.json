@@ -6,8 +6,8 @@
   "scripts": {
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --config webpack.config.js",
     "server": "nodemon src/server/index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "devf": "npm run client"
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "devf": "yarn run client"
   },
   "author": "",
   "license": "ISC",

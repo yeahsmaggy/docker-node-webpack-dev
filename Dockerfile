@@ -1,7 +1,7 @@
 FROM node:latest
 
 RUN useradd --user-group --create-home --shell /bin/false app &&\
-  npm install --global npm
+  yarn global add yarn
 
 ENV HOME=/home/app
 
@@ -11,7 +11,7 @@ RUN chown -R app:app $HOME/*
 USER app
 WORKDIR $HOME/mapperson
 
-RUN npm install
+RUN yarn install
 
 USER root
 COPY . $HOME/mapperson

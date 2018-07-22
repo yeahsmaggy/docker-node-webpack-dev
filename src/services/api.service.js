@@ -4,12 +4,12 @@ import axios from 'axios';
 // axios.defaults.baseURL = CONFIG.API_DOMAIN_NAME;
 axios.defaults.headers.common = { 'X-Requested-With': 'XMLHttpRequest'};
 
-const mapService = {
+const apiService = {
     all () {},
     create () {},
-    show(uuid) {
+    show(id) {
         return new Promise((resolve, reject)=>{
-            axios.get("http://0.0.0.0:8001/maps").then(response =>{
+            axios.get("http://0.0.0.0:8001/${id}").then(response =>{
                 resolve(response.data);
             }).catch((error)=>{
                 reject(error);
@@ -22,4 +22,4 @@ const mapService = {
     delete () {},
 };
 
-export default mapService;
+export default apiService;
