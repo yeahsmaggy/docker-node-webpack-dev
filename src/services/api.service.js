@@ -9,7 +9,7 @@ const apiService = {
     create () {},
     show(id) {
         return new Promise((resolve, reject)=>{
-            axios.get("http://0.0.0.0:8001/${id}").then(response =>{
+            axios.get("http://localhost:8001/" + id).then(response =>{
                 resolve(response.data);
             }).catch((error)=>{
                 reject(error);

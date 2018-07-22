@@ -105,7 +105,6 @@ exports.destroy = function(req, res, next) {
         if (err) {
             return next(err);
         }
-        // Success - go to map list
         res.redirect('/pages')
     })
 };

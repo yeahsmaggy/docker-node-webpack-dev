@@ -22,7 +22,8 @@ yarn run devf
 ## References
 
 - Vuejs
-- Express MVC example
-- Docker Mongo
-- Mongoose
-- Bootstrap vuejs
+- [Express MVC example](https://github.com/expressjs/express/tree/master/examples/mvc)
+- [Docker Mongo](https://hub.docker.com/_/mongo/)
+- [Mongoose](http://mongoosejs.com/)
+- [Bootstrap vuejs](https://bootstrap-vue.js.org/)
+- [Axios](http://codeheaven.io/how-to-use-axios-as-your-http-client/)

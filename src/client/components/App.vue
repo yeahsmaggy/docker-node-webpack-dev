@@ -3,8 +3,60 @@
 
     <Navbar/>
     
+       <div class="container" class="big-main-area">
+           <div class="row">
+               <div class="col-12">
+                    <h2>A novel way to do a city walk</h2>
+               </div>
+           </div>
+       </div>
+              <div class="container">
+                <div class="row">
+                <Page/>
+
+               <div class="col-6">
+              <h3>Latest map ideas</h3>
+                <ul>
+                  <li>Map idea 1</li>
+                  <li>Map idea 2</li>
+                  <li>Map idea 3</li>
+                </ul>
+              </div>
+               <div class="col-6">
+
+                <h3>Latest Submitted Maps</h3>
+                       <li v-for="map in maps">
+<!--                         {{map|$json}}
+ -->                           {{map.name}}
+                       </li>
+              </div>
+
+                   </div>
+           </div>
+
+        
+    <div class="container">
+      <div class="row">
+         <div class="col-6">
+                <h3>Submit a map idea</h3>
+          <h4>Enter your email address</h4>
+          <p>You will get a unique link to temporarily log in, so we know you are a real person.</p>
+        </div>
+             <div class="col-6">
+                <h3>Submit a completed map</h3>
+               <h4>Enter your email address</h4>
+               <p>You will get a unique link to temporarily log in, so we know you are a real person.</p>
+             </div>
+      </div>
+    </div>
+
+       </div>
 
 
+
+
+ <!-- 
+ admin form for adding pages
      <form action="/api/pages" method="post">
 
       <label for="title">Title:
@@ -19,27 +71,8 @@
 
       <input type="submit" name="submit" value="submit">
     </form>
+ -->
 
-
-
-       <div class="container">
-           <div class="row">
-               <div class="col-12">
-                    <p>A novel way to do a city walk</p>
-               </div>
-           </div>
-       </div>
-              <div class="container">
-           <div class="row">
-                <Page/>
-
-               <div class="col-12">
-                       <li v-for="map in maps">
-                           {{map.name}}
-                       </li>
-                   </div>
-           </div>
-       </div>
    </div>
 </template>
 
@@ -65,16 +98,18 @@ export default {
     created: function(){this.getFrom()},
     methods: {
             getFrom: function () {
-                api_service.show().then((responsed) => {
+                api_service.show('maps').then((responsed) => {
                     // window.localStorage.setItem('form', responsed);
+                    // console.log(responsed);
                     this.maps = responsed;
                 }).catch((error) => {
                     if (error.response) {
-                        this.$swal({
-                            type: 'error',
-                            title: 'Oops...',
-                            text: error.response.data.error.message
-                        })
+                        console.log(error);
+                        // this.$swal({
+                        //     type: 'error',
+                        //     title: 'Oops...',
+                        //     text: error.response
+                        // })
                     }
                 });
             },
