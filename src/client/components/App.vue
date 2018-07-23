@@ -3,10 +3,16 @@
 
     <Navbar/>
     
-       <div class="container" class="big-main-area">
+       <div class="container big-main-area">
            <div class="row">
                <div class="col-12">
                     <h2>A novel way to do a city walk</h2>
+
+                    <b-button :size="lg" :variant="secondary-lg">
+                      Make a map
+                  </b-button>
+
+
                </div>
            </div>
        </div>
@@ -104,7 +110,7 @@ export default {
                     this.maps = responsed;
                 }).catch((error) => {
                     if (error.response) {
-                        console.log(error);
+                        console.log(error.response);
                         // this.$swal({
                         //     type: 'error',
                         //     title: 'Oops...',

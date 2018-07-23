@@ -14,7 +14,7 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import './scss/styles.scss';
 import App from './components/App.vue';
 
 

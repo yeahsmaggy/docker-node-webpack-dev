@@ -9,17 +9,13 @@ const PageModel = require('../../models/PageModel')
 exports.engine = 'nunjucks';
 
 exports.before = function(req, res, next) {
+      if (!(req.session && req.session.user)) {
+        return res.send('Not logged in!');
+      }
+      next();
+    }
 
-    var id = req.params.map_id;
-    if (!id) return next();
-    // pretend to query a database...
-    process.nextTick(function() {
-        // cant find that map
-        //if (!req.map) return next('route');
-        // found it, move on to the routes
-        next();
-    });
-};
+
 exports.list = async function(req, res, next) {
 
     await PageModel.find(function(err, results) {
@@ -80,6 +76,8 @@ exports.create = function(req, res, next) {
     //    res.status(500).send(e);
     // };
 };
+
+
 exports.show = async function(req, res, next) {
 
      await PageModel.findById(req.params.page_id, function(err, results) {

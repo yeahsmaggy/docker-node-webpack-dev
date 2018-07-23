@@ -27,3 +27,7 @@ yarn run devf
 - [Mongoose](http://mongoosejs.com/)
 - [Bootstrap vuejs](https://bootstrap-vue.js.org/)
 - [Axios](http://codeheaven.io/how-to-use-axios-as-your-http-client/)
+
+## Notes
+
+- if needed another auth system checkout http://code.tutsplus.com/tutorials/authenticating-nodejs-applications-with-passport--cms-21619

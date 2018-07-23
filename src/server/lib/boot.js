@@ -72,6 +72,18 @@ module.exports = function(parent, options){
           method = 'post';
           url = '/' + name + '/:' + name + '_id/delete';
           break;
+        case 'signup':
+          method = 'post';
+          url = '/signup';
+          break;
+        case 'login':
+          method = 'post';
+          url = '/login';
+          break;
+        case 'logout':
+          method = 'get';
+          url = '/logout';
+          break;
         default:
           /* istanbul ignore next */
           throw new Error('unrecognized route: ' + name + '.' + key);

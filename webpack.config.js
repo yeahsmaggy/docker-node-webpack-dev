@@ -11,79 +11,89 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const outputDirectory = 'dist';
 const nodeExternals = require('webpack-node-externals');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
+const {
+    VueLoaderPlugin
+} = require('vue-loader')
 
 
-module.exports = [
-{
-  name: 'client',
-  entry: ['./src/client/index.js', './public/index.html'],
-  output: {
-    path: path.join(__dirname, 'public', outputDirectory)
-    // filename: 'client.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js(x?)$/,
-        exclude: /node_modules/,
-        loader: "babel-loader"
-      },
-      {
-        test: /\.(html)$/,
-        use: {
-          loader: 'html-loader'
+module.exports = [{
+    name: 'client',
+    entry: ['./src/client/index.js', './public/index.html'],
+    output: {
+        path: path.join(__dirname, 'public', outputDirectory)
+            // filename: 'client.js'
+    },
+    module: {
+        rules: [{
+                test: /\.js(x?)$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            }, {
+                test: /\.(html)$/,
+                use: {
+                    loader: 'html-loader'
+                }
+            }, {
+                test: /\.vue$/,
+                loader: "vue-loader"
+            },
+
+            // { 
+            //   test: /\.json$/, use:['json-loader']
+            // },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }, 
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader", // creates style nodes from JS strings
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS
+                ]
+            }
+        ],
+    },
+    //https://stackoverflow.com/questions/40806689/pre-compile-typescript-vue-components-with-template-string
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.common.js'
         }
-      },
-      { test: /\.vue$/, loader: "vue-loader" },
-
-      // { 
-      //   test: /\.json$/, use:['json-loader']
-      // },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
+    },
+    target: 'web',
+    // externals: [nodeExternals()],
+    plugins: [
+        // new CleanWebpackPlugin([outputDirectory]),
+        new FriendlyErrorsWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        }),
+        new VueLoaderPlugin()
     ],
-  },
-  //https://stackoverflow.com/questions/40806689/pre-compile-typescript-vue-components-with-template-string
-  resolve: {
-  alias: {
-    'vue$': 'vue/dist/vue.common.js'
-  }
-},
-  target: 'web',
-  // externals: [nodeExternals()],
-  plugins: [
-    // new CleanWebpackPlugin([outputDirectory]),
-    new FriendlyErrorsWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
-    new VueLoaderPlugin()
-  ],
-  devServer: {
-    watchOptions: {
-      ignored: /node_modules/
-    },
-    // publicPath: "/",
-    // https://stackoverflow.com/questions/46501079/cannot-get-with-webpack-dev-server
-    contentBase: path.join(__dirname, 'public'),
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    port: 3000,
-    historyApiFallback: true,
-    open: true,
-    https: true,
-    proxy: {
-      '/api': {
-      // '/': {
-      target: 'http://localhost:8001',
-      // pathRewrite: {'^/api' : ''}
-      pathRewrite: {'^/api' : ''}
+    devServer: {
+        watchOptions: {
+            ignored: /node_modules/
+        },
+        // publicPath: "/",
+        // https://stackoverflow.com/questions/46501079/cannot-get-with-webpack-dev-server
+        contentBase: path.join(__dirname, 'public'),
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
+        port: 3000,
+        historyApiFallback: true,
+        open: true,
+        https: true,
+        proxy: {
+            '/api': {
+                // '/': {
+                target: 'http://localhost:8001',
+                // pathRewrite: {'^/api' : ''}
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     }
-    }
-}
-}
-];
+}];
